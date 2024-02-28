@@ -1,11 +1,17 @@
 from pydantic import BaseModel, Field
 
 
-class TaskCreate(BaseModel):
+class TaskBase(BaseModel):
     title: str | None = Field(None, example="クリーニングを取りに行く")
 
 
-class Task(BaseModel):
+class TaskCreate(TaskBase):
+    pass
+
+
+class Task(TaskBase):
     id: int
-    title: str | None = Field(None, example="クリーニングを取りに行く")
     done: bool = Field(False, description="完了フラグ")
+
+    class Config:
+        orm_mode = True
