@@ -17,8 +17,8 @@ async def create_task(
     return task
 
 
-def get_tasks_with_done(db: Session) -> list[tuple[int, str, bool]]:
-    result: Result = db.execute(
+async def get_tasks_with_done(db: AsyncSession) -> list[tuple[int, str, bool]]:
+    result: Result = await db.execute(
         select(
             task_model.Task.id,
             task_model.Task.title,
