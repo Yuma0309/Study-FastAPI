@@ -1,4 +1,3 @@
-from sqlalchemy.orm import Session
 from sqlalchemy import select
 from sqlalchemy.engine import Result
 from sqlalchemy.ext.asyncio import AsyncSession
@@ -46,6 +45,6 @@ async def update_task(
     return original
 
 
-def delete_task(db: Session, original: task_model.Task) -> None:
-    db.delete(original)
-    db.commit()
+async def delete_task(db: AsyncSession, original: task_model.Task) -> None:
+    await db.delete(original)
+    await db.commit()
